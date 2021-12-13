@@ -11,27 +11,47 @@ export interface ShopFood {
 
 const initialState: ShopFood = {
 	loading: false,
+	list: [],
 	filter: {
 		_page: 1,
 		_limit: 16,
 	},
-	list: [],
 };
 
 const shopFoodSlice = createSlice({
 	name: 'shop_food',
 	initialState,
 	reducers: {
-		fetFoodList(state, action: PayloadAction<ListParams>) {
+		fetchFoodList(state, action: PayloadAction<ListParams>) {
 			state.loading = true;
 		},
 
-		fetFoodSuccess(state, action: PayloadAction<Food[]>) {
+		fetchBurgersFood(state, action: PayloadAction<Food[]>) {
+			state.list = action.payload;
+		},
+
+		fetchBreadsFood(state, action: PayloadAction<Food[]>) {
+			state.list = action.payload;
+		},
+
+		fetchSandWichesFood(state, action: PayloadAction<Food[]>) {
+			state.list = action.payload;
+		},
+
+		fetchDrinksFood(state, action: PayloadAction<Food[]>) {
+			state.list = action.payload;
+		},
+
+		fetchPizzasFood(state, action: PayloadAction<Food[]>) {
+			state.list = action.payload;
+		},
+
+		fetchFoodSuccess(state, action: PayloadAction<Food[]>) {
 			state.loading = false;
 			state.list = action.payload;
 		},
 
-		fetFoodFailed(state, action: PayloadAction<string>) {
+		fetchFoodFailed(state, action: PayloadAction<string>) {
 			state.loading = false;
 		},
 

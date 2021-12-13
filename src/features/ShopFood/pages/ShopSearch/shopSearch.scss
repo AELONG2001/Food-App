@@ -3,7 +3,6 @@
 
 .shop-handle {
   display: flex;
-  align-items: flex-start;
   padding-right: 24px;
 
   @include respond(mobile) {
@@ -26,6 +25,7 @@
   }
 
   &__search input {
+    font-size: 1.5rem;
     outline: 0;
     border: 0;
     width: 100%;
@@ -34,8 +34,12 @@
   }
 
   &__search-btn {
-    width: 3rem;
-    height: 3rem;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    width: 3.2rem;
+    height: 3.2rem;
     margin-left: auto;
 
 

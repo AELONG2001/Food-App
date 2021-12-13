@@ -1,4 +1,3 @@
-// lazy load img js
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import RoomIcon from '@mui/icons-material/Room';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -8,16 +7,18 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectFoodFilter, shopFoodAction } from 'features/ShopFood/shopFoodSlice';
 import { Food } from 'models';
 import React from 'react';
+// lazy load img js
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 // lazy load img css
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import './ShopProduct.scss';
+import EmptyImg from 'assets/images/empty-shop.e78970f0.svg';
 
 export interface ShopProductProps {
-	foods: Food[];
+	bestFood: Food[];
 }
 
-function ShopProduct({ foods }: ShopProductProps) {
+function ShopProduct({ bestFood }: ShopProductProps) {
 	const dispatch = useAppDispatch();
 	const filter = useAppSelector(selectFoodFilter);
 
@@ -31,49 +32,58 @@ function ShopProduct({ foods }: ShopProductProps) {
 	};
 	return (
 		<>
-			<div className="shop-product">
-				{foods.map((food) => (
-					<div key={food.id} className="shop-product_box">
-						<div className="shop-product__img-wrapper">
-							<LazyLoadImage
-								effect="blur"
-								src={food.img}
-								className="shop-product__img"
-								alt=""
-								width="100%"
-								height="100%"
-							></LazyLoadImage>
-							<div className="shop-product__rate">
-								<StarIcon />
-								<span>{food.rate}</span>
-							</div>
-						</div>
-
-						<div className="shop-product__content">
-							<div className="shop-product__name">{food.name}</div>
-							<p className="shop-product__description">{food.dsc}</p>
-							<div className="shop-product__row">
-								<div className="shop-product__location">
-									<RoomIcon />
-									<span>{food.country}</span>
+			{bestFood.length > 0 ? (
+				<div>
+					<div className="shop-product">
+						{bestFood.map((food) => (
+							<div key={food.id} className="shop-product_box">
+								<div className="shop-product__img-wrapper">
+									<LazyLoadImage
+										effect="blur"
+										src={food.img}
+										className="shop-product__img"
+										alt=""
+										width="100%"
+										height="100%"
+									></LazyLoadImage>
+									<div className="shop-product__rate">
+										<StarIcon />
+										<span>{food.rate}</span>
+									</div>
 								</div>
-								<div className="shop-product__price">{`$${food.price}`}</div>
-							</div>
-						</div>
 
-						<div className="shop-product__btns">
-							<div className="shop-product__btn">
-								<FavoriteBorderIcon />
+								<div className="shop-product__content">
+									<div className="shop-product__name">{food.name}</div>
+									<p className="shop-product__description">{food.dsc}</p>
+									<div className="shop-product__row">
+										<div className="shop-product__location">
+											<RoomIcon />
+											<span>{food.country}</span>
+										</div>
+										<div className="shop-product__price">{`$${food.price}`}</div>
+									</div>
+								</div>
+
+								<div className="shop-product__btns">
+									<div className="shop-product__btn">
+										<FavoriteBorderIcon />
+									</div>
+									<div className="shop-product__btn">
+										<ShoppingCartIcon />
+									</div>
+								</div>
+								<div className="shop-product__label">Favourite</div>
 							</div>
-							<div className="shop-product__btn">
-								<ShoppingCartIcon />
-							</div>
-						</div>
-						<div className="shop-product__label">Favourite</div>
+						))}
 					</div>
-				))}
-			</div>
-			<Pagination count={4} page={filter._page} onChange={handleChange} />;
+					<Pagination count={4} page={filter._page} onChange={handleChange} />;
+				</div>
+			) : (
+				<div className="shop-product__empty">
+					<img src={EmptyImg} alt="Empty Food" />
+					<div>There Is No Product You Are Looking For</div>
+				</div>
+			)}
 		</>
 	);
 }

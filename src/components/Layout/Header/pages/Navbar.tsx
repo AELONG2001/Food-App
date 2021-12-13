@@ -16,9 +16,12 @@ import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import ReviewsIcon from '@mui/icons-material/Reviews';
+import './styles.scss';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const pages = ['Home', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const useStyles = makeStyles({
 	logo: {
@@ -79,6 +82,9 @@ const Navbar = () => {
 			position="static"
 			sx={{
 				position: 'fixed',
+				top: 0,
+				left: 0,
+				right: 0,
 				backgroundColor: 'transparent',
 				zIndex: 100,
 				marginTop: '5 !important',
@@ -225,12 +231,14 @@ const Navbar = () => {
 						LOGO
 					</Typography>
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-						<Button className={classes.buttonNav} onClick={handleCloseNavMenu}>
-							<HomeIcon sx={{ fontSize: 28 }} />
-							<Typography variant="h6" sx={{ paddingLeft: 1, lineHeight: '1.8rem' }}>
-								Home
-							</Typography>
-						</Button>
+						<Link to="/">
+							<Button className={classes.buttonNav} onClick={handleCloseNavMenu}>
+								<HomeIcon sx={{ fontSize: 28 }} />
+								<Typography variant="h6" sx={{ paddingLeft: 1, lineHeight: '1.8rem' }}>
+									Home
+								</Typography>
+							</Button>
+						</Link>
 
 						<Button className={classes.buttonNav} onClick={handleCloseNavMenu}>
 							<RestaurantMenuIcon sx={{ fontSize: 28 }} />
@@ -247,7 +255,7 @@ const Navbar = () => {
 						</Button>
 					</Box>
 
-					<Box sx={{ flexGrow: 0 }}>
+					<Box className="navbar__account" sx={{ flexGrow: 0, position: 'relative' }}>
 						<Box sx={{ display: 'flex', alignItems: 'center' }}>
 							<Tooltip title="Open settings">
 								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -258,28 +266,20 @@ const Navbar = () => {
 								Sign In
 							</Typography>
 						</Box>
-						<Menu
-							sx={{ mt: '45px' }}
-							id="menu-appbar"
-							anchorEl={anchorElUser}
-							anchorOrigin={{
-								vertical: 'top',
-								horizontal: 'right',
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: 'top',
-								horizontal: 'right',
-							}}
-							open={Boolean(anchorElUser)}
-							onClose={handleCloseUserMenu}
-						>
-							{settings.map((setting) => (
-								<MenuItem key={setting} onClick={handleCloseNavMenu}>
-									<Typography textAlign="center">{setting}</Typography>
-								</MenuItem>
-							))}
-						</Menu>
+						<ul className="navbar__account-options">
+							<li className="navbar__account-option">
+								<AccountBoxIcon />
+								<span>My account</span>
+							</li>
+							<li className="navbar__account-option">
+								<LoyaltyIcon />
+								<span>My wishlist</span>
+							</li>
+							<li className="navbar__account-option">
+								<LogoutIcon />
+								<span>Logout</span>
+							</li>
+						</ul>
 					</Box>
 				</Toolbar>
 			</Container>

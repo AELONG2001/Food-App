@@ -32,4 +32,4 @@ export const typeOptions = [
 ];
 
 //options checkbox food
-export const optionCheckbox = ['Under $100', '$50 to $100', 'Under $50', 'Above $100'];
+export const optionCheckbox = ['Under $100', 'Above $100', 'Under $50', '$50 to $100'];
