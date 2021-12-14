@@ -2,6 +2,7 @@
 
 import createSagaMiddleware from '@redux-saga/core';
 import { configureStore, ThunkAction, Action, combineReducers } from '@reduxjs/toolkit';
+import authReducer from 'features/Auth/AuthSlice';
 import shopFoodReducer from 'features/ShopFood/shopFoodSlice';
 import rootSaga from './rootSaga';
 
@@ -9,6 +10,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
 	food: shopFoodReducer,
+	auth: authReducer,
 });
 
 export const store = configureStore({

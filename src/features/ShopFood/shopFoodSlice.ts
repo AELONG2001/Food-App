@@ -26,6 +26,15 @@ const shopFoodSlice = createSlice({
 			state.loading = true;
 		},
 
+		fetchFoodSuccess(state, action: PayloadAction<Food[]>) {
+			state.list = action.payload;
+			state.loading = false;
+		},
+
+		fetchFoodFailed(state, action: PayloadAction<string>) {
+			state.loading = false;
+		},
+
 		fetchBurgersFood(state, action: PayloadAction<Food[]>) {
 			state.list = action.payload;
 		},
@@ -45,16 +54,6 @@ const shopFoodSlice = createSlice({
 		fetchPizzasFood(state, action: PayloadAction<Food[]>) {
 			state.list = action.payload;
 		},
-
-		fetchFoodSuccess(state, action: PayloadAction<Food[]>) {
-			state.loading = false;
-			state.list = action.payload;
-		},
-
-		fetchFoodFailed(state, action: PayloadAction<string>) {
-			state.loading = false;
-		},
-
 		setFilter(state, action: PayloadAction<ListParams>) {
 			state.filter = action.payload;
 		},

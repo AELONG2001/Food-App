@@ -18,6 +18,10 @@ html {
   line-height: 1.4rem;
 }
 
+.App {
+  overflow: hidden;
+}
+
 a {
   text-decoration: none !important;
 }
@@ -39,4 +43,9 @@ a {
   background-color: $scrollbar-color;
   background-clip: content-box;
  
+}
+
+
+.css-1kxwfp {
+  display: 'none !important'
 }

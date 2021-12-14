@@ -1,22 +1,19 @@
 /** @format */
 
-import Container from 'components/Layout/Container/Container';
-import Footer from 'components/Layout/Footer/Footer';
-import Header from 'components/Layout/Header/Header';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from 'components/HomePage/HomePage';
+import LoginPage from 'features/Auth/Login/Login';
 
 function App() {
 	return (
-		<div style={{ overflow: 'hidden' }}>
-			<Router>
-				<Header />
-				<Routes>
-					<Route path="/" element={<Container />} />
-				</Routes>
-				<Footer />
-			</Router>
-		</div>
+		<Router>
+			<Routes>
+				<Route path="/" element={<HomePage />} />
+				<Route path="/home" element={<HomePage />} />
+				<Route path="/login" element={<LoginPage />} />
+			</Routes>
+		</Router>
 	);
 }
 

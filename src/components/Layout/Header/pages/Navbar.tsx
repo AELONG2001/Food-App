@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { makeStyles } from '@mui/styles';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import ReviewsIcon from '@mui/icons-material/Reviews';
@@ -20,6 +20,9 @@ import './styles.scss';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import LogoutIcon from '@mui/icons-material/Logout';
+import firebase from 'firebase/compat/app';
+import LoginPage from 'features/Auth/Login/Login';
+import { getAuth, signOut } from 'firebase/auth';
 
 const pages = ['Home', 'Pricing', 'Blog'];
 
@@ -44,8 +47,15 @@ const useStyles = makeStyles({
 const Navbar = () => {
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
 	const classes = useStyles();
 	const ref = useRef<HTMLDivElement>(null);
+
+	//get info user from redux
+	// const userInfo = useAppSelector(selectUser);
+	const navigate = useNavigate();
+	const userName = localStorage.getItem('UserName');
+	const userAvatar = localStorage.getItem('UserAvatar');
 
 	useLayoutEffect(() => {
 		const navbar = ref.current;
@@ -72,8 +82,22 @@ const Navbar = () => {
 		setAnchorElNav(null);
 	};
 
-	const handleCloseUserMenu = () => {
-		setAnchorElUser(null);
+	const checkLogin = localStorage.getItem('access_token');
+
+	const handleLogin = () => {
+		navigate('/login');
+		localStorage.setItem('access_token', 'yes');
+	};
+
+	const handleLogout = () => {
+		const auth = getAuth();
+		signOut(auth)
+			.then(() => {
+				localStorage.removeItem('access_token');
+				localStorage.removeItem('UserName');
+				localStorage.removeItem('UserAvatar');
+			})
+			.catch((error) => {});
 	};
 
 	return (
@@ -256,30 +280,54 @@ const Navbar = () => {
 					</Box>
 
 					<Box className="navbar__account" sx={{ flexGrow: 0, position: 'relative' }}>
-						<Box sx={{ display: 'flex', alignItems: 'center' }}>
-							<Tooltip title="Open settings">
-								<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-									<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-								</IconButton>
-							</Tooltip>
-							<Typography sx={{ fontSize: '1.5rem', fontWeight: 600, paddingLeft: 1 }} variant="h6">
-								Sign In
-							</Typography>
-						</Box>
-						<ul className="navbar__account-options">
-							<li className="navbar__account-option">
-								<AccountBoxIcon />
-								<span>My account</span>
-							</li>
-							<li className="navbar__account-option">
-								<LoyaltyIcon />
-								<span>My wishlist</span>
-							</li>
-							<li className="navbar__account-option">
-								<LogoutIcon />
-								<span>Logout</span>
-							</li>
-						</ul>
+						{checkLogin ? (
+							<Box sx={{ display: 'flex', alignItems: 'center' }}>
+								<Tooltip title="Open settings">
+									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+										<Avatar alt="Remy Sharp" src={userAvatar as string} />
+									</IconButton>
+								</Tooltip>
+								<Typography
+									sx={{ fontSize: '1.5rem', fontWeight: 600, paddingLeft: 1 }}
+									variant="h6"
+								>
+									{userName}
+								</Typography>
+							</Box>
+						) : (
+							<Box onClick={handleLogin} sx={{ display: 'flex', alignItems: 'center' }}>
+								<Tooltip title="Open settings">
+									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+										<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+									</IconButton>
+								</Tooltip>
+								<Typography
+									sx={{ fontSize: '1.5rem', fontWeight: 600, paddingLeft: 1 }}
+									variant="h6"
+								>
+									SignIn
+								</Typography>
+							</Box>
+						)}
+						{checkLogin && (
+							<ul className="navbar__account-options">
+								<li className="navbar__account-option">
+									<AccountBoxIcon />
+									<span>My account</span>
+								</li>
+								<li className="navbar__account-option">
+									<LoyaltyIcon />
+									<span>My wishlist</span>
+								</li>
+								<li className="navbar__account-option">
+									<LogoutIcon />
+									<div style={{ color: 'black' }} onClick={handleLogout}>
+										<LoginPage />
+										LogOut
+									</div>
+								</li>
+							</ul>
+						)}
 					</Box>
 				</Toolbar>
 			</Container>

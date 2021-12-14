@@ -1,9 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-const baseURL = 'https://ig-food-menus.herokuapp.com';
-
+// const baseURL = process.env.REACT_APP_API_URL;
 const axiosClient = axios.create({
-	baseURL: baseURL,
+	baseURL: 'https://ig-food-menus.herokuapp.com',
 	headers: {
 		'Content-Type': 'application/json',
 	},

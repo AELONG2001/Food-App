@@ -2,7 +2,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import RoomIcon from '@mui/icons-material/Room';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import StarIcon from '@mui/icons-material/Star';
-import { Pagination } from '@mui/material';
+import { Box, Pagination } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectFoodFilter, shopFoodAction } from 'features/ShopFood/shopFoodSlice';
 import { Food } from 'models';
@@ -31,7 +31,23 @@ function ShopProduct({ bestFood }: ShopProductProps) {
 		);
 	};
 	return (
-		<>
+		<Box>
+			{/* {loading && (
+				<Box
+					sx={{
+						position: 'absolute',
+						top: '50%',
+						left: '50%',
+						transform: 'translate(-50%, -50%)',
+					}}
+				>
+					<CircularProgress
+						sx={{
+							color: '#ff514e',
+						}}
+					/>
+				</Box>
+			)} */}
 			{bestFood.length > 0 ? (
 				<div>
 					<div className="shop-product">
@@ -76,7 +92,7 @@ function ShopProduct({ bestFood }: ShopProductProps) {
 							</div>
 						))}
 					</div>
-					<Pagination count={4} page={filter._page} onChange={handleChange} />;
+					<Pagination count={4} page={filter._page} onChange={handleChange} />
 				</div>
 			) : (
 				<div className="shop-product__empty">
@@ -84,7 +100,7 @@ function ShopProduct({ bestFood }: ShopProductProps) {
 					<div>There Is No Product You Are Looking For</div>
 				</div>
 			)}
-		</>
+		</Box>
 	);
 }
 

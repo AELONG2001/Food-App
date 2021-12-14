@@ -1,0 +1,17 @@
+.firebaseui-idp-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    -webkit-justify-content: center;
+    -webkit-align-items: center;
+}
+
+.firebaseui-list-item {
+    flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+}
+
+.firebaseui-list-item:first-child {
+    margin-right: 20px;
+}
