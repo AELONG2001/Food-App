@@ -5,7 +5,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'app/hooks';
-import { authActions, UserInfo } from '../AuthSlice';
+import { authActions } from '../AuthSlice';
 
 // Configure Firebase.
 const config = {

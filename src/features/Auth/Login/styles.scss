@@ -1,3 +1,6 @@
+@import "assets/styles/colors";
+@import "assets/styles/mixins";
+
 .firebaseui-idp-list {
     display: flex;
     justify-content: center;
@@ -14,4 +17,73 @@
 
 .firebaseui-list-item:first-child {
     margin-right: 20px;
+}
+
+.login {
+     &__options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    & > *:first-child {
+      margin-right: 20px;
+
+      @include respond(phone) {
+        margin-right: 0;
+      }
+    }
+
+    @include respond(phone) {
+      flex-direction: column;
+    }
+  }
+
+  &__options &__option {
+    padding: 10px 12px;
+    font-size: 1.3rem;
+    margin-top: 15px;
+    text-transform: unset;
+    color: inherit;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 999px;
+    min-width: 18.5rem;
+
+    background-color: $primary-white-color;
+
+    @include respond(phone) {
+      min-width: 65%;
+    }
+  }
+
+  &__options &__option:hover {
+    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
+
+    background-color: #ebe9e9;
+  }
+
+  &__options &__option--gg {
+    margin-right: 20px;
+
+    @include respond(phone) {
+      margin-right: 0;
+      margin-bottom: 5px;
+    }
+  }
+
+  &__options &__option img,
+  &__options &__option svg {
+    width: 2.2rem;
+    height: 2.2rem;
+    margin-right: 5px;
+  }
+
+  &__options &__option svg {
+    fill: #4166b1;
+  }
+
+  &__options .gg-icon,
+  &__options .fb-icon {
+    margin-right: 3px;
+  }
 }

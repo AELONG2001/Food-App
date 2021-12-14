@@ -1,28 +1,27 @@
-import React, { useLayoutEffect, useRef } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import { makeStyles } from '@mui/styles';
-import { Link, useNavigate } from 'react-router-dom';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import HomeIcon from '@mui/icons-material/Home';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import MenuIcon from '@mui/icons-material/Menu';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import ReviewsIcon from '@mui/icons-material/Reviews';
-import './styles.scss';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import LoyaltyIcon from '@mui/icons-material/Loyalty';
-import LogoutIcon from '@mui/icons-material/Logout';
-import firebase from 'firebase/compat/app';
+import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
 import LoginPage from 'features/Auth/Login/Login';
 import { getAuth, signOut } from 'firebase/auth';
+import React, { useLayoutEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './styles.scss';
 
 const pages = ['Home', 'Pricing', 'Blog'];
 
@@ -319,13 +318,13 @@ const Navbar = () => {
 									<LoyaltyIcon />
 									<span>My wishlist</span>
 								</li>
-								<li className="navbar__account-option">
+								<a href="/" onClick={handleLogout} className="navbar__account-option">
 									<LogoutIcon />
-									<div style={{ color: 'black' }} onClick={handleLogout}>
+									<div style={{ color: 'black' }}>
 										<LoginPage />
 										LogOut
 									</div>
-								</li>
+								</a>
 							</ul>
 						)}
 					</Box>
