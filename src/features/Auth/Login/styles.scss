@@ -1,89 +1,134 @@
 @import "assets/styles/colors";
 @import "assets/styles/mixins";
 
-.firebaseui-idp-list {
-    display: flex;
+@mixin d-flex {
+    display: flex !important;
+    align-items: center !important;
+    display: -webkit-flex !important;
+    -webkit-align-items: center !important;
     justify-content: center;
-    align-items: center;
-    display: -webkit-flex;
     -webkit-justify-content: center;
-    -webkit-align-items: center;
 }
 
-.firebaseui-list-item {
-    flex-shrink: 0;
-    -webkit-flex-shrink: 0;
+@mixin positionCenter {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.firebaseui-list-item:first-child {
-    margin-right: 20px;
+//custom css facebook
+.kep-login-facebook {
+    font-family: 'Roboto', sans-serif !important;
+    @include d-flex;
+    position: relative !important;
+    width: 280px !important;
+    height: 48px !important;
+    font-size: 1.5rem !important;
+    font-weight: 500 !important;
+    padding: 10px !important;
+    border-radius: 30px !important;
+    text-transform: capitalize !important;
+    color: $primary-black-color !important;
+    background-color: $primary-white-color !important;
+    border: 0.2rem solid #dce0e3 !important;
+    user-select: none;
 }
 
-.login {
-     &__options {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-
-    & > *:first-child {
-      margin-right: 20px;
-
-      @include respond(phone) {
-        margin-right: 0;
-      }
-    }
-
-    @include respond(phone) {
-      flex-direction: column;
-    }
-  }
-
-  &__options &__option {
-    padding: 10px 12px;
-    font-size: 1.3rem;
-    margin-top: 15px;
-    text-transform: unset;
-    color: inherit;
-    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
-    border-radius: 999px;
-    min-width: 18.5rem;
-
+.form__login {
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  &-box {
+    position: absolute;
+    @include positionCenter;
+    width: 600px;
+    height: 80%;
     background-color: $primary-white-color;
-
-    @include respond(phone) {
-      min-width: 65%;
+    border-radius: 8px;
+    z-index: 100;
+    &-img {
+        width: 72px;
+        height: 72px;
+        margin: 30px auto 10px auto;
     }
-  }
-
-  &__options &__option:hover {
-    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
-
-    background-color: #ebe9e9;
-  }
-
-  &__options &__option--gg {
-    margin-right: 20px;
-
-    @include respond(phone) {
-      margin-right: 0;
-      margin-bottom: 5px;
+    &-heading {
+        & h3 {
+            font-family: Montserrat;
+            color: $primary-black-color;
+            text-align: center;
+            font-size: 2.8rem;
+            margin: 10px 0;
+        }
     }
-  }
-
-  &__options &__option img,
-  &__options &__option svg {
-    width: 2.2rem;
-    height: 2.2rem;
-    margin-right: 5px;
-  }
-
-  &__options &__option svg {
-    fill: #4166b1;
-  }
-
-  &__options .gg-icon,
-  &__options .fb-icon {
-    margin-right: 3px;
+    &-content {
+        position: absolute;
+        @include positionCenter;
+        @include d-flex;
+        flex-direction: column;
+        margin-top: 10px;
+       &-p {
+           position: relative;
+            @include d-flex;
+            width: 280px;
+            height: 44px;
+            margin: 0 auto;
+            border-radius: 30px;
+            text-align: center;
+            border: 0.2rem solid #dce0e3 !important;
+            user-select: none;
+            cursor: pointer;
+            & img {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                left: 2rem;
+                padding-right: 2rem;
+            }
+            & span {
+                position: absolute;
+                top: 50%;
+                left: 60%;
+                transform: translate(-50%, -50%);
+                min-width: 200px;
+                color: $primary-black-color;
+                font-size: 1.5rem;
+                font-weight: 500;
+                text-align: start;
+            }
+       }
+       &-g {
+            position: relative;
+            @include d-flex;
+            width: 280px;
+            height: 44px;
+            margin: 16px auto;
+            border-radius: 30px;
+            text-align: center;
+            border: 0.2rem solid #dce0e3 !important;
+            user-select: none;
+            cursor: pointer;
+            & img {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                left: 2rem;
+            }
+            & span {
+                position: absolute;
+                top: 50%;
+                left: 60%;
+                transform: translate(-50%, -50%);
+                min-width: 200px;
+                color: $primary-black-color;
+                font-size: 1.5rem;
+                font-weight: 500;
+                text-align: start;
+            }
+       }
+    }
   }
 }
+
+

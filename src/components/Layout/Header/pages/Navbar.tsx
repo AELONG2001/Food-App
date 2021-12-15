@@ -1,6 +1,5 @@
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import HomeIcon from '@mui/icons-material/Home';
-import LogoutIcon from '@mui/icons-material/Logout';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import MenuIcon from '@mui/icons-material/Menu';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
@@ -17,8 +16,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
-import LoginPage from 'features/Auth/Login/Login';
-import { getAuth, signOut } from 'firebase/auth';
+import LogoutPage from 'features/Auth/Login/Logout';
 import React, { useLayoutEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './styles.scss';
@@ -50,11 +48,15 @@ const Navbar = () => {
 	const classes = useStyles();
 	const ref = useRef<HTMLDivElement>(null);
 
-	//get info user from redux
-	// const userInfo = useAppSelector(selectUser);
 	const navigate = useNavigate();
-	const userName = localStorage.getItem('UserName');
-	const userAvatar = localStorage.getItem('UserAvatar');
+
+	//name and img google
+	const name = localStorage.getItem('userName');
+	const img = localStorage.getItem('userImg');
+
+	//name and img facebook
+	const nameFb = localStorage.getItem('nameFb');
+	const imgFb = localStorage.getItem('imgFb');
 
 	useLayoutEffect(() => {
 		const navbar = ref.current;
@@ -81,22 +83,8 @@ const Navbar = () => {
 		setAnchorElNav(null);
 	};
 
-	const checkLogin = localStorage.getItem('access_token');
-
 	const handleLogin = () => {
 		navigate('/login');
-		localStorage.setItem('access_token', 'yes');
-	};
-
-	const handleLogout = () => {
-		const auth = getAuth();
-		signOut(auth)
-			.then(() => {
-				localStorage.removeItem('access_token');
-				localStorage.removeItem('UserName');
-				localStorage.removeItem('UserAvatar');
-			})
-			.catch((error) => {});
 	};
 
 	return (
@@ -279,18 +267,18 @@ const Navbar = () => {
 					</Box>
 
 					<Box className="navbar__account" sx={{ flexGrow: 0, position: 'relative' }}>
-						{checkLogin ? (
+						{name || nameFb ? (
 							<Box sx={{ display: 'flex', alignItems: 'center' }}>
 								<Tooltip title="Open settings">
 									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-										<Avatar alt="Remy Sharp" src={userAvatar as string} />
+										<Avatar alt="Remy Sharp" src={img || (imgFb as string)} />
 									</IconButton>
 								</Tooltip>
 								<Typography
 									sx={{ fontSize: '1.5rem', fontWeight: 600, paddingLeft: 1 }}
 									variant="h6"
 								>
-									{userName}
+									{name || nameFb}
 								</Typography>
 							</Box>
 						) : (
@@ -308,7 +296,7 @@ const Navbar = () => {
 								</Typography>
 							</Box>
 						)}
-						{checkLogin && (
+						{name || nameFb ? (
 							<ul className="navbar__account-options">
 								<li className="navbar__account-option">
 									<AccountBoxIcon />
@@ -318,14 +306,12 @@ const Navbar = () => {
 									<LoyaltyIcon />
 									<span>My wishlist</span>
 								</li>
-								<a href="/" onClick={handleLogout} className="navbar__account-option">
-									<LogoutIcon />
-									<div style={{ color: 'black' }}>
-										<LoginPage />
-										LogOut
-									</div>
-								</a>
+								<li className="navbar__account-option">
+									<LogoutPage />
+								</li>
 							</ul>
+						) : (
+							<div></div>
 						)}
 					</Box>
 				</Toolbar>
