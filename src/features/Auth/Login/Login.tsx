@@ -8,12 +8,60 @@ import googleImg from 'assets/images/google.svg';
 import personalImg from 'assets/images/personal.svg';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import './styles.scss';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import InputField from 'components/FormField/InputField';
+import { Button } from '@mui/material';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 const clientId = '113208815372-2sqg2cl1d9fvi8mh9ivbnl532mosff1q.apps.googleusercontent.com';
 
-export default function LoginPage() {
-	const navigate = useNavigate();
+interface IFormInputs {
+	email: string;
+	password: string;
+}
 
+//validate with yup
+const schema = yup.object({
+	email: yup
+		.string()
+		.required('This field is required')
+		.matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'This is not valid email format'),
+	password: yup
+		.string()
+		.required('This field is required')
+		.matches(
+			/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
+			'Password should containing at 8 characters, 1 number, 1 upper and 1 lowercase'
+		),
+});
+
+export default function LoginPage() {
+	const [toggleFormLogin, setToggleFormLogin] = useState(false);
+
+	//Toggle Login with Email or Phone number
+	const handleShowLoginEmailPhoneNumber = () => {
+		setToggleFormLogin(true);
+	};
+
+	const handleHideLoginEmailPhoneNumber = () => {
+		!toggleFormLogin ? navigate('/') : setToggleFormLogin(false);
+	};
+
+	const onSubmit = (data: IFormInputs) => {};
+
+	//form
+	const {
+		control,
+		handleSubmit,
+		formState: {},
+	} = useForm<IFormInputs>({
+		resolver: yupResolver(schema),
+	});
+
+	//login with google
+	const navigate = useNavigate();
 	const onSuccess = (res: any) => {
 		refreshTokenSetup(res);
 
@@ -40,6 +88,7 @@ export default function LoginPage() {
 	//login with facebook
 	const [login, setLogin] = useState(false);
 
+	//callback get data from facebook
 	const responseFacebook = (response: any) => {
 		localStorage.setItem('nameFb', response.name);
 		localStorage.setItem('imgFb', response.picture.data.url);
@@ -61,6 +110,16 @@ export default function LoginPage() {
 	return (
 		<div className="form__login" style={{ backgroundImage: `url('${bannerFood}')` }}>
 			<div className="form__login-box">
+				<KeyboardBackspaceIcon
+					onClick={handleHideLoginEmailPhoneNumber}
+					sx={{
+						position: 'absolute',
+						top: '50px !important',
+						left: '20px !important',
+						color: '#1976d2 !important',
+						fontSize: '3rem',
+					}}
+				/>
 				<div className="form__login-box-img">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171.17 151.54">
 						<defs>
@@ -143,42 +202,71 @@ export default function LoginPage() {
 						</g>
 					</svg>
 				</div>
-
 				<div className="form__login-box-heading">
 					<h3>Welcome to our restaurant</h3>
 				</div>
-				<div className="form__login-box-content">
-					<div className="form__login-box-content-p">
-						<img src={personalImg} alt="logo-personal" />
-						<span>Email Or Phone Number</span>
-					</div>
-
-					<div className="form__login-box-content-g" onClick={signIn}>
-						<img src={googleImg} alt="logo-google" />
-						<span>Login With Google</span>
-					</div>
-					{!login && (
-						<FacebookLogin
-							appId="1186369935222865"
-							autoLoad={false}
-							fields="name,email,picture"
-							scope="public_profile,email,user_friends"
-							callback={responseFacebook}
-							icon={
-								<FacebookIcon
-									sx={{
-										position: 'absolute',
-										top: '50%',
-										transform: 'translateY(-50%)',
-										left: '2rem',
-										fontSize: '2.4rem !important',
-										color: '#4c69ba !important',
-										paddingRight: '2rem',
-									}}
-								/>
-							}
+				{toggleFormLogin && (
+					<form className="form__login-box__main" onSubmit={handleSubmit(onSubmit)}>
+						<InputField
+							className="form__login-box__main-input"
+							name="email"
+							label="Email address"
+							control={control}
+							placeholder="Email/Phone Number"
 						/>
-					)}
+						<InputField
+							className="form__login-box__main-input"
+							name="password"
+							label="Password"
+							control={control}
+							placeholder="Enter your password"
+						/>
+						<Button className="form__login-box__main-button" type="submit" variant="contained">
+							Login
+						</Button>
+					</form>
+				)}
+
+				{!toggleFormLogin && (
+					<div className="form__login-box-content">
+						<div className="form__login-box-content-p" onClick={handleShowLoginEmailPhoneNumber}>
+							<img src={personalImg} alt="logo-personal" />
+							<span>Email Or Phone Number</span>
+						</div>
+
+						<div className="form__login-box-content-g" onClick={signIn}>
+							<img src={googleImg} alt="logo-google" />
+							<span>Login With Google</span>
+						</div>
+						{!login && (
+							<FacebookLogin
+								appId="1186369935222865"
+								autoLoad={false}
+								fields="name,email,picture"
+								scope="public_profile,email,user_friends"
+								callback={responseFacebook}
+								icon={
+									<FacebookIcon
+										sx={{
+											position: 'absolute',
+											top: '50%',
+											transform: 'translateY(-50%)',
+											left: '2rem',
+											fontSize: '2.4rem !important',
+											color: '#4c69ba !important',
+											paddingRight: '2rem',
+										}}
+									/>
+								}
+							/>
+						)}
+					</div>
+				)}
+
+				<div className="form__login-box-help">
+					<p>
+						Don't have an account? <span>Create an account</span>
+					</p>
 				</div>
 			</div>
 		</div>
