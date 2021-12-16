@@ -137,16 +137,8 @@
 }
 
 //custom checkbox content
-.css-x4hoq0-MuiFormControlLabel-root .MuiFormControlLabel-label {
-  flex-shrink: 0;
-  font-size: 1.4rem;
-  text-transform: capitalize;
-}
-
-.css-1hbvpl3-MuiSvgIcon-root, .css-11zohuh-MuiSvgIcon-root, .css-1hhw7if-MuiSvgIcon-root {
-  width: 1.6em !important;
-  height: 1.6em !important;
-}
-
-.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input:focus {
+.MuiFormControlLabel-label {
+  flex-shrink: 0 !important;
+  font-size: 1.4rem !important;
+  text-transform: capitalize !important;
 }

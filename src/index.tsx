@@ -5,6 +5,7 @@ import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import GlobalStyles from './components/common/GlobalStyles/GlobalStyles';
+import { ToastContainer } from 'react-toastify';
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -12,6 +13,7 @@ ReactDOM.render(
 			<GlobalStyles>
 				<App />
 			</GlobalStyles>
+			<ToastContainer />
 		</Provider>
 	</React.StrictMode>,
 	document.getElementById('root')

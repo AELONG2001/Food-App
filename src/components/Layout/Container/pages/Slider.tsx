@@ -4,6 +4,7 @@ import { Button, Grid, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { sliderInfo } from 'constants/sliderInfo';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { A11y, Navigation, Pagination, Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react/swiper-react.js';
 import 'swiper/swiper-bundle.min.css';
@@ -42,12 +43,14 @@ export default function Slider() {
 							<div className="slider__content-title">{info.title}</div>
 							<div className="slider__content-desc">{info.desc}</div>
 							<span className="slider__content-desc-sub">{info.subDesc}</span>
-							<Button variant="contained" className={classes.buttonOrder} size="large">
-								<AddShoppingCartIcon />
-								<Typography pl={0.6} variant="h5">
-									Order Now
-								</Typography>
-							</Button>
+							<Link to="/popular-food">
+								<Button variant="contained" className={classes.buttonOrder} size="large">
+									<AddShoppingCartIcon />
+									<Typography pl={0.6} variant="h5">
+										Order Now
+									</Typography>
+								</Button>
+							</Link>
 						</div>
 					</Grid>
 				</SwiperSlide>

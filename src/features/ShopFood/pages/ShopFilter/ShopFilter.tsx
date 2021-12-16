@@ -6,6 +6,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { optionCheckbox, typeOptions } from 'constants/shopInfo';
 import React from 'react';
+import { makeStyles } from '@mui/styles';
 import './shopFilter.scss';
 
 export interface ShopFiltersProps {
@@ -16,6 +17,16 @@ export interface ShopFiltersProps {
 	onSubmitVote3: () => void;
 }
 
+const useStyles = makeStyles({
+	btnRadio: {
+		'& .MuiSvgIcon-root': {
+			width: '2rem !important',
+			height: '2rem !important',
+			marginBottom: '1px',
+		},
+	},
+});
+
 function ShopFilters({
 	onSubmitFood,
 	onSubmitPrice,
@@ -23,6 +34,8 @@ function ShopFilters({
 	onSubmitVote2,
 	onSubmitVote3,
 }: ShopFiltersProps) {
+	const classes = useStyles();
+
 	//get food follow index
 	const handleSubmit = (idx: number) => {
 		onSubmitFood(idx);
@@ -57,7 +70,14 @@ function ShopFilters({
 							onClick={() => handleSubmitPrice(idx + 1)}
 							key={idx}
 							value={value}
-							control={<Radio sx={{ color: '#ff514e !important' }} />}
+							control={
+								<Radio
+									className={classes.btnRadio}
+									sx={{
+										color: '#ff514e !important',
+									}}
+								/>
+							}
 							label={value}
 							sx={{ flexShrink: 0, fontSize: '1.6rem' }}
 						/>

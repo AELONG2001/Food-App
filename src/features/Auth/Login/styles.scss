@@ -69,22 +69,6 @@
         flex-direction: column;
         -webkit-flex-direction: column;
         margin-top: 40px;
-        .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
-            margin: 6px 0;
-        }
-        .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
-            border-radius: 30px !important;
-        }
-
-        .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
-            font-size: 1.4rem !important;
-            line-height: 1.6rem !important;
-        }
-
-        .css-1wc848c-MuiFormHelperText-root.Mui-error {
-            font-size: 1.2rem;
-        }
-
 
         &-input {
             font-size: 1.5rem !important;
@@ -189,6 +173,14 @@
 
     }
   }
+}
+
+
+//custom Toastify
+.Toastify {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 

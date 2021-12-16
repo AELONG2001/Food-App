@@ -329,7 +329,7 @@
 
 
 //custom pagination
-.css-wjh20t-MuiPagination-ul {
+.MuiPagination-ul {
   justify-content: center;
   margin: 40px 0 !important;
   & li {
@@ -346,8 +346,8 @@
   }
 }
 
-.css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
-  color: $primary-white-color;
+.Mui-selected {
+  color: $primary-white-color !important;
   background-color: #ff514e !important;
   border-radius: 4px;
 }

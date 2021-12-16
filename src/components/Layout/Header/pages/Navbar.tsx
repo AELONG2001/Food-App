@@ -101,6 +101,7 @@ const Navbar = () => {
 				marginTop: '5 !important',
 				transition: '0.2s ease',
 				padding: '0 !important',
+				boxShadow: 'unset !important',
 			}}
 		>
 			<Container maxWidth="lg">
@@ -251,13 +252,14 @@ const Navbar = () => {
 							</Button>
 						</Link>
 
-						<Button className={classes.buttonNav} onClick={handleCloseNavMenu}>
-							<RestaurantMenuIcon sx={{ fontSize: 28 }} />
-							<Typography variant="h6" sx={{ paddingLeft: 1, lineHeight: '1.8rem' }}>
-								Order Online
-							</Typography>
-						</Button>
-
+						<Link to="/popular-food">
+							<Button className={classes.buttonNav} onClick={handleCloseNavMenu}>
+								<RestaurantMenuIcon sx={{ fontSize: 28 }} />
+								<Typography variant="h6" sx={{ paddingLeft: 1, lineHeight: '1.8rem' }}>
+									Order Online
+								</Typography>
+							</Button>
+						</Link>
 						<Button className={classes.buttonNav} onClick={handleCloseNavMenu}>
 							<ReviewsIcon sx={{ fontSize: 28 }} />
 							<Typography variant="h6" sx={{ paddingLeft: 1, lineHeight: '1.8rem' }}>

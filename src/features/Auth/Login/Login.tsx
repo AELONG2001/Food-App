@@ -14,6 +14,9 @@ import * as yup from 'yup';
 import InputField from 'components/FormField/InputField';
 import { Button } from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { toast } from 'react-toastify';
+import ToastBody from 'components/CustomToast/ToastBody';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const clientId = '113208815372-2sqg2cl1d9fvi8mh9ivbnl532mosff1q.apps.googleusercontent.com';
 
@@ -48,8 +51,6 @@ export default function LoginPage() {
 	const handleHideLoginEmailPhoneNumber = () => {
 		!toggleFormLogin ? navigate('/') : setToggleFormLogin(false);
 	};
-
-	const onSubmit = (data: IFormInputs) => {};
 
 	//form
 	const {
@@ -107,6 +108,39 @@ export default function LoginPage() {
 		}
 	};
 
+	//React toastify
+	const showToast = () => {
+		return toast(<ToastBody />, {
+			position: 'top-right',
+			closeButton: (
+				<div
+					style={{
+						position: 'absolute',
+						top: 8,
+						right: 8,
+						color: '#fff',
+					}}
+				>
+					<ExitToAppIcon sx={{ width: '2rem !important', height: '2rem !important' }} />
+				</div>
+			),
+			autoClose: 3000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+		});
+	};
+
+	const handleCreateAccount = () => {
+		showToast();
+	};
+
+	const onSubmit = () => {
+		showToast();
+	};
+
 	return (
 		<div className="form__login" style={{ backgroundImage: `url('${bannerFood}')` }}>
 			<div className="form__login-box">
@@ -117,7 +151,7 @@ export default function LoginPage() {
 						top: '50px !important',
 						left: '20px !important',
 						color: '#1976d2 !important',
-						fontSize: '3rem',
+						fontSize: '2.6rem',
 					}}
 				/>
 				<div className="form__login-box-img">
@@ -265,7 +299,7 @@ export default function LoginPage() {
 
 				<div className="form__login-box-help">
 					<p>
-						Don't have an account? <span>Create an account</span>
+						Don't have an account? <span onClick={handleCreateAccount}>Create an account</span>
 					</p>
 				</div>
 			</div>

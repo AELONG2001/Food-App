@@ -1,3 +1,4 @@
+import CategorySlider from 'components/CategorySlider';
 import HomeWork from 'features/HomeWork';
 import ShopFood from 'features/ShopFood';
 import React from 'react';
@@ -10,6 +11,7 @@ export default function Container(props: ContainerProps) {
 		<div>
 			<Slider />
 			<HomeWork />
+			<CategorySlider />
 			<ShopFood />
 		</div>
 	);
