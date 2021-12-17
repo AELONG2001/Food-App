@@ -2,6 +2,7 @@ import { Grid } from '@mui/material';
 import foodApi from 'api/foodApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import React, { ChangeEvent, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ShopFilter from './pages/ShopFilter/ShopFilter';
 import ShopProduct from './pages/ShopProduct/ShopProduct';
 import ShopSearch from './pages/ShopSearch/ShopSearch';
@@ -12,7 +13,7 @@ export default function ShopFood() {
 	const filter = useAppSelector(selectFoodFilter);
 	const foodList = useAppSelector(selectFoodList);
 
-	//save data input search
+	const navigate = useNavigate();
 
 	//get main food
 	useEffect(() => {
@@ -94,6 +95,11 @@ export default function ShopFood() {
 		dispatch(shopFoodAction.setFilterWidthDebounce(newFilterUnder));
 	};
 
+	//show Food follow id
+	const getFoodById = (id: string) => {
+		navigate(`shop/${id}`);
+	};
+
 	return (
 		<Grid container maxWidth="lg" sx={{ margin: '0 auto' }}>
 			<Grid item xs={2}>
@@ -107,7 +113,7 @@ export default function ShopFood() {
 			</Grid>
 			<Grid item xs={10}>
 				<ShopSearch onFoodSearch={onFoodSearch} />
-				<ShopProduct bestFood={foodList} />
+				<ShopProduct bestFood={foodList} getFoodById={getFoodById} />
 			</Grid>
 		</Grid>
 	);

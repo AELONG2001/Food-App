@@ -1,5 +1,3 @@
-import { useEffect, useRef } from 'react';
-
 import { homeCategoryData } from 'constants/categorySliderInfo';
 
 // material ui

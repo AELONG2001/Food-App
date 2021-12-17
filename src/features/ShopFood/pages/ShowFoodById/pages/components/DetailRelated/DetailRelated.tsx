@@ -2,58 +2,44 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import RoomIcon from '@mui/icons-material/Room';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import StarIcon from '@mui/icons-material/Star';
-import { Box, Pagination } from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { selectFoodFilter, shopFoodAction } from 'features/ShopFood/shopFoodSlice';
+import { useAppSelector } from 'app/hooks';
+import 'features/ShopFood/pages/ShopProduct/ShopProduct.scss';
+import { selectFoodList } from 'features/ShopFood/shopFoodSlice';
 import { Food } from 'models';
-import React from 'react';
-// lazy load img js
+import React, { useEffect, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-// lazy load img css
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import './ShopProduct.scss';
-import EmptyImg from 'assets/images/empty-shop.e78970f0.svg';
+import './styles.scss';
 
-export interface ShopProductProps {
-	bestFood: Food[];
-	getFoodById: (id: string) => void;
+export interface DetailRelatedProps {
+	id?: string;
 }
 
-function ShopProduct({ bestFood, getFoodById }: ShopProductProps) {
-	const dispatch = useAppDispatch();
-	const filter = useAppSelector(selectFoodFilter);
+export default function DetailRelated({ id }: DetailRelatedProps) {
+	const listProduct = useAppSelector(selectFoodList);
+	const [products, setProducts] = useState<Food[]>([]);
 
-	const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-		dispatch(
-			shopFoodAction.setFilter({
-				...filter,
-				_page: value,
-			})
-		);
-	};
+	useEffect(() => {
+		if (listProduct.length <= 0) return;
+
+		const productFilter = listProduct.filter((product) => product.id !== id);
+		const randomProducts = [];
+
+		for (let i = 0; i < 5; i++) {
+			const num = Math.floor(Math.random() * listProduct.length);
+			randomProducts.push(productFilter[num]);
+		}
+		setProducts(randomProducts);
+	}, []);
+
 	return (
-		<Box>
-			{/* {loading && (
-				<Box
-					sx={{
-						position: 'absolute',
-						top: '50%',
-						left: '50%',
-						transform: 'translate(-50%, -50%)',
-					}}
-				>
-					<CircularProgress
-						sx={{
-							color: '#ff514e',
-						}}
-					/>
-				</Box>
-			)} */}
-			{bestFood.length > 0 ? (
-				<div>
-					<div className="shop-product">
-						{bestFood.map((food) => (
-							<div key={food.id} className="shop-product_box" onClick={() => getFoodById(food.id)}>
+		<>
+			{products && products.length > 0 && (
+				<div style={{ margin: '0 auto' }}>
+					<div className="related-heading">Related Products</div>
+					<div className="shop-product shop-product__related">
+						{products.map((food) => (
+							<div key={food.id} className="shop-product_box shop-product_box-related">
 								<div className="shop-product__img-wrapper">
 									<LazyLoadImage
 										effect="blur"
@@ -93,16 +79,8 @@ function ShopProduct({ bestFood, getFoodById }: ShopProductProps) {
 							</div>
 						))}
 					</div>
-					<Pagination count={4} page={filter._page} onChange={handleChange} />
-				</div>
-			) : (
-				<div className="shop-product__empty">
-					<img src={EmptyImg} alt="Empty Food" />
-					<div>There Is No Product You Are Looking For</div>
 				</div>
 			)}
-		</Box>
+		</>
 	);
 }
-
-export default ShopProduct;

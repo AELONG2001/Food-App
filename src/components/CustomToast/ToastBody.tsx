@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { CLOSE_COLOR } from 'constants/toastColor';
 import SettingsIcon from '@mui/icons-material/Settings';
 import './styles.scss';
 import 'react-toastify/dist/ReactToastify.min.css';

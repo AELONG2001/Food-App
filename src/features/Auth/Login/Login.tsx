@@ -53,11 +53,7 @@ export default function LoginPage() {
 	};
 
 	//form
-	const {
-		control,
-		handleSubmit,
-		formState: {},
-	} = useForm<IFormInputs>({
+	const { control, handleSubmit } = useForm<IFormInputs>({
 		resolver: yupResolver(schema),
 	});
 

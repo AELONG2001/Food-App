@@ -43,7 +43,6 @@ const useStyles = makeStyles({
 
 const Navbar = () => {
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
 	const classes = useStyles();
 	const ref = useRef<HTMLDivElement>(null);
@@ -74,9 +73,6 @@ const Navbar = () => {
 
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorElNav(event.currentTarget);
-	};
-	const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-		setAnchorElUser(event.currentTarget);
 	};
 
 	const handleCloseNavMenu = () => {
@@ -272,7 +268,7 @@ const Navbar = () => {
 						{name || nameFb ? (
 							<Box sx={{ display: 'flex', alignItems: 'center' }}>
 								<Tooltip title="Open settings">
-									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+									<IconButton sx={{ p: 0 }}>
 										<Avatar alt="Remy Sharp" src={img || (imgFb as string)} />
 									</IconButton>
 								</Tooltip>
@@ -286,7 +282,7 @@ const Navbar = () => {
 						) : (
 							<Box onClick={handleLogin} sx={{ display: 'flex', alignItems: 'center' }}>
 								<Tooltip title="Open settings">
-									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+									<IconButton sx={{ p: 0 }}>
 										<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
 									</IconButton>
 								</Tooltip>
