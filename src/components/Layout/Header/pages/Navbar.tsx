@@ -17,7 +17,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 import LogoutPage from 'features/Auth/Login/Logout';
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './styles.scss';
 
@@ -42,7 +42,7 @@ const useStyles = makeStyles({
 });
 
 const Navbar = () => {
-	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
 	const classes = useStyles();
 	const ref = useRef<HTMLDivElement>(null);
@@ -59,16 +59,16 @@ const Navbar = () => {
 
 	useLayoutEffect(() => {
 		const navbar = ref.current;
-		window.addEventListener('scroll', () => {
-			if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-				navbar!.style.backgroundColor = 'rgba(0, 0, 0, 0.84)';
-				navbar!.style.marginTop = '0';
-			} else {
-				navbar!.style.backgroundColor = 'transparent';
-				navbar!.style.boxShadow = 'unset';
-				navbar!.style.marginTop = '5px';
-			}
-		});
+			window.addEventListener('scroll', () => {
+				if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+					navbar!.style.backgroundColor = 'rgba(0, 0, 0, 0.84)';
+					navbar!.style.marginTop = '0';
+				} else {
+					navbar!.style.backgroundColor = 'transparent';
+					navbar!.style.boxShadow = 'unset';
+					navbar!.style.marginTop = '5px';
+				}
+			});
 	});
 
 	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -256,12 +256,15 @@ const Navbar = () => {
 								</Typography>
 							</Button>
 						</Link>
-						<Button className={classes.buttonNav} onClick={handleCloseNavMenu}>
-							<ReviewsIcon sx={{ fontSize: 28 }} />
-							<Typography variant="h6" sx={{ paddingLeft: 1, lineHeight: '1.8rem' }}>
-								Reviews
-							</Typography>
-						</Button>
+
+						<Link to="/review">
+							<Button className={classes.buttonNav} onClick={handleCloseNavMenu}>
+								<ReviewsIcon sx={{ fontSize: 28 }} />
+								<Typography variant="h6" sx={{ paddingLeft: 1, lineHeight: '1.8rem' }}>
+									Reviews
+								</Typography>
+							</Button>
+						</Link>
 					</Box>
 
 					<Box className="navbar__account" sx={{ flexGrow: 0, position: 'relative' }}>

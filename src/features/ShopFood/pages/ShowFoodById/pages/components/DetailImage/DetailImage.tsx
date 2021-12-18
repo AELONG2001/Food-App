@@ -1,5 +1,6 @@
 import { Food } from 'models/food';
 import React from 'react';
+import { SideBySideMagnifier } from 'react-image-magnifiers';
 import './styles.scss';
 
 export interface DetailImageProps {
@@ -12,7 +13,14 @@ export default function DetailImage({ id, listFood }: DetailImageProps) {
 		<div className="detail__img-box">
 			{listFood.map((food, idx) => (
 				<div key={idx} className="detail__img-box-content">
-					{food.id === id && <img src={food.img} alt={food.name} />}
+					{food.id === id && (
+						<SideBySideMagnifier
+							imageSrc={food.img}
+							imageAlt={food.name}
+							alwaysInPlace={true}
+							transitionSpeedInPlace={0.3}
+						/>
+					)}
 				</div>
 			))}
 		</div>

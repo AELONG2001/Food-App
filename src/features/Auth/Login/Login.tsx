@@ -30,10 +30,12 @@ const schema = yup.object({
 	email: yup
 		.string()
 		.required('This field is required')
+		//eslint-disable-next-line
 		.matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'This is not valid email format'),
 	password: yup
 		.string()
 		.required('This field is required')
+		//eslint-disable-next-line
 		.matches(
 			/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
 			'Password should containing at 8 characters, 1 number, 1 upper and 1 lowercase'

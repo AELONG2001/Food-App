@@ -1,9 +1,8 @@
-import React from 'react';
-
-import ShopFood from 'features/ShopFood/index';
-import Header from 'components/Layout/Header/Header';
 import Footer from 'components/Layout/Footer/Footer';
-import BannerPopularFood from './pages/BannerPopularFood';
+import Header from 'components/Layout/Header/Header';
+import ShopFood from 'features/ShopFood/index';
+import React from 'react';
+import BannerPopularFood from './pages/BannerPopularFood/BannerPopularFood';
 
 export default function PopularFood() {
 	return (

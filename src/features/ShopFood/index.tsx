@@ -97,7 +97,7 @@ export default function ShopFood() {
 
 	//show Food follow id
 	const getFoodById = (id: string) => {
-		navigate(`shop/${id}`);
+		navigate(`/shop/${id}`);
 	};
 
 	return (

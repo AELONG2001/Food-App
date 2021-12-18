@@ -2,8 +2,11 @@
     padding: 0 24px;
     &-content {
        & img {
-           width: 540px;
-           height: 540px;
+            width: 540px;
+            height: 540px;
+           &:hover {
+               cursor: crosshair !important;
+           }
        }
     }
 }

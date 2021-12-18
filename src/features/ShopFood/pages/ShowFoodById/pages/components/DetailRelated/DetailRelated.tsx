@@ -9,6 +9,7 @@ import { Food } from 'models';
 import React, { useEffect, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { useNavigate } from 'react-router-dom';
 import './styles.scss';
 
 export interface DetailRelatedProps {
@@ -19,6 +20,8 @@ export default function DetailRelated({ id }: DetailRelatedProps) {
 	const listProduct = useAppSelector(selectFoodList);
 	const [products, setProducts] = useState<Food[]>([]);
 
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		if (listProduct.length <= 0) return;
 
@@ -28,9 +31,14 @@ export default function DetailRelated({ id }: DetailRelatedProps) {
 		for (let i = 0; i < 5; i++) {
 			const num = Math.floor(Math.random() * listProduct.length);
 			randomProducts.push(productFilter[num]);
+			productFilter.splice(num, 1);
 		}
 		setProducts(randomProducts);
-	}, []);
+	}, [listProduct, id]);
+
+	const getFoodById = (id: string) => {
+		navigate(`/shop/${id}`);
+	};
 
 	return (
 		<>
@@ -38,12 +46,16 @@ export default function DetailRelated({ id }: DetailRelatedProps) {
 				<div style={{ margin: '0 auto' }}>
 					<div className="related-heading">Related Products</div>
 					<div className="shop-product shop-product__related">
-						{products.map((food) => (
-							<div key={food.id} className="shop-product_box shop-product_box-related">
+						{products.map((food, idx) => (
+							<div
+								key={idx}
+								className="shop-product_box shop-product_box-related"
+								onClick={() => getFoodById(food && food.id ? food.id : '')}
+							>
 								<div className="shop-product__img-wrapper">
 									<LazyLoadImage
 										effect="blur"
-										src={food.img}
+										src={food && food.img ? food.img : ''}
 										className="shop-product__img"
 										alt=""
 										width="100%"
@@ -51,19 +63,21 @@ export default function DetailRelated({ id }: DetailRelatedProps) {
 									></LazyLoadImage>
 									<div className="shop-product__rate">
 										<StarIcon />
-										<span>{food.rate}</span>
+										<span>{food && food.rate ? food.rate : ''}</span>
 									</div>
 								</div>
 
 								<div className="shop-product__content">
-									<div className="shop-product__name">{food.name}</div>
-									<p className="shop-product__description">{food.dsc}</p>
+									<div className="shop-product__name">{food && food.name ? food.name : ''}</div>
+									<p className="shop-product__description">{food && food.dsc ? food.dsc : ''}</p>
 									<div className="shop-product__row">
 										<div className="shop-product__location">
 											<RoomIcon />
-											<span>{food.country}</span>
+											<span>{food && food.country ? food.country : ''}</span>
 										</div>
-										<div className="shop-product__price">{`$${food.price}`}</div>
+										<div className="shop-product__price">{`$${
+											food && food.price ? food.price : ''
+										}`}</div>
 									</div>
 								</div>
 

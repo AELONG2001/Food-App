@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { makeStyles } from '@mui/styles';
 
@@ -31,13 +31,19 @@ export default function ButtonScroll() {
 		window!.scrollTo({ top: 0, behavior: 'smooth' });
 	};
 
-	window.addEventListener('scroll', () => {
-		if (window.scrollY > 800) {
-			setIsShowBtn(true);
-		} else {
-			setIsShowBtn(false);
-		}
-	});
+	useEffect(() => {
+		window.addEventListener('scroll', () => {
+			if (window.scrollY > 800) {
+				setIsShowBtn(true);
+			} else {
+				setIsShowBtn(false);
+			}
+		});
+
+		return () => {
+			window.removeEventListener('scroll', handleClickScrollIntoView);
+		};
+	}, []);
 
 	return (
 		<>

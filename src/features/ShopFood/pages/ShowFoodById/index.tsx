@@ -1,6 +1,6 @@
 import Footer from 'components/Layout/Footer/Footer';
 import Header from 'components/Layout/Header/Header';
-import BannerPopularFood from 'features/PopularFood/pages/BannerPopularFood';
+import BannerPopularFood from 'features/PopularFood/pages/BannerPopularFood/BannerPopularFood';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import ShopFoodByIdList from './pages/ShopFoodByIdList';
